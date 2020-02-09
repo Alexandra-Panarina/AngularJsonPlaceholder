@@ -1,0 +1,44 @@
+<div id="dialogBox" class="dialog-modal-box" [ngClass]="{'visible': isVisDialogComment}">
+  <div class="dialog-grid">
+    <h2 class="title">{{ publTitle }}</h2>
+    <p class="body">{{publBody}}</p>
+    <div class="comment"><p class="line" *ngFor="let item of commentObj">{{item.body}}</p></div>
+    <button class="close" (click)="closeDialogBox()">Close</button>
+  </div>
+</div>
+
+<div style="overflow-x:auto;">
+<table>
+  <h1>Таблица Публикаций</h1>
+  <tr>
+    <th (click)="sortPub('name',1)" [ngClass]="{ 'sort_check_app': 1 == selectedItem }"
+              id="name"> Имя пользователя
+            <img [ngClass]="{'rotateSVG': isDesc }" src="../../assets/sort.svg">
+          </th>
+          <th (click)="sortPub('city',2)"
+              [ngClass]="{ 'sort_check_app': 2 == selectedItem }"
+              id="city">Название города
+            <img [ngClass]="{'rotateSVG': isDesc }"
+                 src="../../assets/sort.svg">
+          </th>
+          <th (click)="sortPub('title',3)"
+              [ngClass]="{ 'sort_check_app': 3 == selectedItem }"
+              id="title">Название публикации
+            <img [ngClass]="{'rotateSVG': isDesc }"
+                 src="../../assets/sort.svg">
+          </th>
+          <th (click)="sortPub('cnt_comm',4)"
+              [ngClass]="{ 'sort_check_app': 4 == selectedItem }"
+              id="cnt_comm">Количество комментариев
+            <img [ngClass]="{'rotateSVG': isDesc }"
+                 src="../../assets/sort.svg">
+          </th>
+  </tr>
+  <tr *ngFor="let publication of merged" (click)="openCommentDialog(publication.title, publication.body, publication.comments)">
+    <td>{{publication.user.username}}</td>
+    <td>{{publication.user.address.city}}</td>
+    <td>{{publication.title}}</td>
+    <td style="text-align: center">{{publication.comments.length}}</td>
+  </tr>
+</table>
+</div>
